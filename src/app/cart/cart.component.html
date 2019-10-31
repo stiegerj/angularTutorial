@@ -1,8 +1,9 @@
 <h3> Cart </h3>
 
-<div class="cart-item" *ngFor="let item of items">
+<div class="cart-item" *ngFor="let item of items; index as i">
   <span>{{ item.name }} </span>
   <span>{{ item.price | currency }} </span>
+  <button (click)="remove(i)">Remove from cart</button>
 </div>
 
 <p> Total: {{getTotal()| currency }} </p>
@@ -11,5 +12,27 @@
   <a routerLink="/shipping">Shipping Prices</a>
 </p>
 
+<form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+
+  <div>
+    <label for="name">
+      Name
+    </label>
+    <input id="name" type="text" formControlName="name">
+  </div>
+
+  <div>
+    <label for="address">
+      Address
+    </label>
+    <input id="address" type="text" formControlName="address">
+  </div>
+
+  <button class="button" type="submit">Checkout</button>
+
+</form>
+
+
+
+<br> <br>
 <a [routerLink]="['/']"> Back to product list </a> <br> <br>
-<button (click)="clearCart()">Empty cart</button>
